@@ -4,12 +4,14 @@
   --bg-color: #ffffff;
   --text-color: #0f172a;
   --card-bg: #f8fafc;
+  --border-color: #e2e8f0;
 }
 
 [data-theme='dark'] {
   --bg-color: #0f172a;
   --text-color: #f8fafc;
   --card-bg: #1e293b;
+  --border-color: #334155;
 }
 
 body {
