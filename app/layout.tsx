@@ -10,8 +10,10 @@ interface ThemeContextType {
   toggleTheme: () => void;
 }
 
+// 1. ประกาศสร้าง ThemeContext ที่ขาดไป
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+// 2. Export useTheme ให้ไฟล์อื่นเรียกใช้ได้
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (!context) {
@@ -46,4 +48,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </body>
     </html>
   );
-} 
+}
