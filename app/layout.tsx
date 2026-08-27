@@ -25,22 +25,18 @@ export function useStore() {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>('dark');
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
+    // สลับ attribute data-theme บน <html> ตามสีปัจจุบัน
+    document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
   const toggleTheme = () => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
 
   return (
-    <html lang="th" className="light">
-      <body className="bg-stone-50 dark:bg-zinc-950 text-stone-800 dark:text-zinc-100 min-h-screen font-sans transition-colors duration-500 antialiased">
+    <html lang="th" data-theme={theme}>
+      <body className="min-h-screen font-sans antialiased">
         <StoreContext.Provider value={{ theme, toggleTheme }}>
           {children}
         </StoreContext.Provider>
