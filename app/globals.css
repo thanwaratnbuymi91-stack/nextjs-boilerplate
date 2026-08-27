@@ -1,13 +1,20 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+:root {
+  --bg-color: #ffffff;
+  --text-color: #0f172a;
+  --card-bg: #f8fafc;
+}
 
-@layer base {
-  body {
-    @apply bg-slate-100 text-slate-800 transition-colors duration-300 font-sans min-h-screen pb-24;
-  }
-  
-  html.dark body {
-    @apply bg-slate-950 text-slate-100;
-  }
+[data-theme='dark'] {
+  --bg-color: #0f172a;
+  --text-color: #f8fafc;
+  --card-bg: #1e293b;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+  font-family: system-ui, -apple-system, sans-serif;
 }
