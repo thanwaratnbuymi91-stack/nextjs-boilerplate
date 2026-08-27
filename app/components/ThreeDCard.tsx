@@ -91,4 +91,4 @@ export default function ThreeDCard({ item }: { item: Product }) {
       </div>
     </div>
   );
-}
+} 
