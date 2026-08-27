@@ -1,24 +1,13 @@
 @import "tailwindcss";
 
-/* กำหนดให้เมื่อมี class="dark" ที่ html ให้สลับตัวแปรและสีเป็น Dark Mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
-  :root {
-    --bg-main: #ffffff;
-    --bg-card: #f8fafc;
-    --text-main: #0f172a;
-    --border-color: #e2e8f0;
-  }
-
-  html.dark {
-    --bg-main: #0f172a;
-    --bg-card: #1e293b;
-    --text-main: #f8fafc;
-    --border-color: #334155;
-  }
-
   body {
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    @apply bg-slate-100 text-slate-800 transition-colors duration-300 font-sans min-h-screen pb-24;
+  }
+  
+  html.dark body {
+    @apply bg-slate-950 text-slate-100;
   }
 }

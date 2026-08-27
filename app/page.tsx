@@ -25,7 +25,7 @@ const mockProducts: Product[] = [
     discount: '-61%', 
     rating: 4.9, 
     reviews: 120, 
-    badge: 'LUXE',
+    badge: 'MALL',
     image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&auto=format&fit=crop&q=80' 
   },
   { 
@@ -36,7 +36,7 @@ const mockProducts: Product[] = [
     discount: '-44%', 
     rating: 5.0, 
     reviews: 85, 
-    badge: 'RECOMMENDED',
+    badge: 'ร้านแนะนำ',
     image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80' 
   },
   { 
@@ -66,44 +66,41 @@ export default function HomePage() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100">
+      {/* Navbar ด้านบน */}
       <Navbar onOpenLogin={() => setIsLoginOpen(true)} />
 
-      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      {/* Main Content บนจอ PC */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         
-        {/* Banner แนวนอน */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 border border-sky-500/20 p-8 sm:p-14 text-white shadow-2xl shadow-sky-950/50 flex flex-col sm:flex-row justify-between items-center gap-6">
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl"></div>
-          
-          <div className="space-y-4 text-center sm:text-left z-10">
-            <span className="text-xs font-bold uppercase tracking-widest text-amber-300 bg-amber-400/10 border border-amber-400/20 px-3.5 py-1.5 rounded-full inline-block">
-              CAMPUS EXCLUSIVE SELECTION
+        {/* Banner โปรโมชันขนาดใหญ่สำหรับจอคอม */}
+        <div className="bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500 rounded-3xl p-6 sm:p-10 text-white shadow-xl shadow-orange-500/15 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="space-y-2">
+            <span className="text-xs font-black uppercase tracking-widest bg-white/20 px-3 py-1 rounded-full">
+              CAMPUS BIG SALE
             </span>
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
-              ศูนย์รวมสินค้า <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-amber-300">และอุปกรณ์ระดับพรีเมียม</span>
-            </h1>
-            <p className="text-sm sm:text-base text-slate-400">แพลตฟอร์มซื้อ-ขายสินค้าคุณภาพสำหรับนักศึกษาโดยเฉพาะ</p>
+            <h1 className="text-2xl sm:text-4xl font-black">ศูนย์รวมสินค้าและอุปกรณ์นักศึกษา</h1>
+            <p className="text-sm text-white/90">ซื้อ-ขาย ปลอดภัย ภายในรั้ววิทยาลัย</p>
           </div>
-
           <button 
             type="button"
             onClick={() => setIsLoginOpen(true)}
-            className="z-10 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-extrabold px-8 py-4 rounded-2xl shadow-xl shadow-sky-500/25 transition-all cursor-pointer text-sm whitespace-nowrap tracking-wider"
+            className="bg-white text-orange-600 hover:bg-slate-100 font-bold px-6 py-3 rounded-full shadow-lg transition cursor-pointer whitespace-nowrap"
           >
             เริ่มลงขายสินค้า
           </button>
         </div>
 
-        {/* หัวข้อสินค้า */}
-        <div className="flex justify-between items-center pt-4">
-          <h2 className="text-xl font-extrabold text-white flex items-center gap-3">
-            <span className="w-1.5 h-6 bg-gradient-to-b from-sky-400 to-blue-600 rounded-full inline-block"></span>
-            สินค้าแนะนำไฮไลต์
+        {/* แถบหัวข้อ สินค้าแนะนำ */}
+        <div className="flex justify-between items-center">
+          <h2 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+            <span className="w-2.5 h-5 bg-orange-500 rounded-full inline-block"></span>
+            สินค้าแนะนำสำหรับคุณ
           </h2>
         </div>
 
-        {/* Grid สินค้าแนวนอน */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        {/* Grid สินค้า รองรับจอคอม (4 คอลัมน์บนจอ PC ใหญ่) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {mockProducts.map((item) => (
             <ThreeDCard key={item.id} item={item} />
           ))}
@@ -111,6 +108,7 @@ export default function HomePage() {
 
       </main>
 
+      {/* หน้า Login Modal */}
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </div>
   );

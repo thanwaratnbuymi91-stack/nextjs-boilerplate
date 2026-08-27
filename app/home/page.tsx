@@ -1,17 +1,13 @@
 'use client';
-import { useState } from 'react';
-import Navbar from './components/Navbar';
-import LoginModal from './components/LoginModal';
-import ThreeDCard from './components/ThreeDCard';
 
 interface Product {
   id: number;
   name: string;
   price: number;
-  originalPrice?: number;
-  discount?: string;
-  rating?: number;
-  reviews?: number;
+  originalPrice: number;
+  discount: string;
+  rating: number;
+  reviews: number;
   image: string;
   badge?: string;
 }
@@ -19,99 +15,123 @@ interface Product {
 const mockProducts: Product[] = [
   { 
     id: 1, 
-    name: 'GUC กระเป๋าสะพายข้าง ทรงสวยจุของได้เยอะ หนังนุ่มพรีเมียม', 
-    price: 149, 
-    originalPrice: 390, 
-    discount: '-61%', 
+    name: 'หนังสือเรียน Programming 101 สภาพดี 99%', 
+    price: 150, 
+    originalPrice: 350, 
+    discount: '-57%', 
     rating: 4.9, 
-    reviews: 120, 
-    badge: 'LUXE',
-    image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&auto=format&fit=crop&q=80' 
+    reviews: 42, 
+    badge: 'หนังสือ',
+    image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80' 
   },
   { 
     id: 2, 
-    name: 'เสื้อช็อปนักศึกษา ผ้าคอมทวิวเนื้อดี ใส่สบาย ไม่ร้อน', 
+    name: 'เสื้อช็อป ไซส์ L มือสอง สภาพนางฟ้า', 
     price: 250, 
     originalPrice: 450, 
     discount: '-44%', 
     rating: 5.0, 
-    reviews: 85, 
-    badge: 'RECOMMENDED',
+    reviews: 18, 
+    badge: 'เครื่องแต่งกาย',
     image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80' 
   },
   { 
     id: 3, 
-    name: 'หูฟังไร้สาย Bluetooth 5.3 ตัดเสียงรบกวน เบสหนัก', 
-    price: 399, 
-    originalPrice: 1290, 
-    discount: '-69%', 
+    name: 'หูฟัง Bluetooth เสียงดี เบสแน่น ตัดเสียงรบกวน', 
+    price: 390, 
+    originalPrice: 890, 
+    discount: '-56%', 
     rating: 4.8, 
-    reviews: 240, 
-    badge: 'HOT',
+    reviews: 95, 
+    badge: 'IT & GADGET',
     image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80' 
   },
   { 
     id: 4, 
-    name: 'กระเป๋าเป้นักศึกษา ช่องเยอะ กันน้ำ สายสะพายนุ่มซัพพอร์ตไหล่', 
-    price: 290, 
-    originalPrice: 590, 
-    discount: '-50%', 
+    name: 'กระเป๋าเป้ นักศึกษา ช่องเยอะ กันน้ำ', 
+    price: 200, 
+    originalPrice: 490, 
+    discount: '-59%', 
     rating: 4.9, 
-    reviews: 64, 
+    reviews: 31, 
     image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80' 
   },
 ];
 
-export default function HomePage() {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-
+export default function HomeRoutePage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <Navbar onOpenLogin={() => setIsLoginOpen(true)} />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      
+      {/* Header สินค้าในวิทยาลัย */}
+      <div className="flex justify-between items-center bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+        <h1 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+          <span className="w-3 h-6 bg-orange-500 rounded-full inline-block"></span>
+          สินค้าในวิทยาลัย
+        </h1>
+        <button 
+          type="button"
+          className="bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs sm:text-sm px-4 py-2 rounded-xl transition shadow-md cursor-pointer"
+        >
+          + เพิ่มสินค้า
+        </button>
+      </div>
 
-      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        
-        {/* Banner แนวนอน */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 border border-sky-500/20 p-8 sm:p-14 text-white shadow-2xl shadow-sky-950/50 flex flex-col sm:flex-row justify-between items-center gap-6">
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl"></div>
-          
-          <div className="space-y-4 text-center sm:text-left z-10">
-            <span className="text-xs font-bold uppercase tracking-widest text-amber-300 bg-amber-400/10 border border-amber-400/20 px-3.5 py-1.5 rounded-full inline-block">
-              CAMPUS EXCLUSIVE SELECTION
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
-              ศูนย์รวมสินค้า <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-amber-300">และอุปกรณ์ระดับพรีเมียม</span>
-            </h1>
-            <p className="text-sm sm:text-base text-slate-400">แพลตฟอร์มซื้อ-ขายสินค้าคุณภาพสำหรับนักศึกษาโดยเฉพาะ</p>
-          </div>
-
-          <button 
-            type="button"
-            onClick={() => setIsLoginOpen(true)}
-            className="z-10 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-extrabold px-8 py-4 rounded-2xl shadow-xl shadow-sky-500/25 transition-all cursor-pointer text-sm whitespace-nowrap tracking-wider"
+      {/* Grid การ์ดสินค้าพร้อมรูปภาพจริง */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        {mockProducts.map((item) => (
+          <div 
+            key={item.id}
+            className="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-800 flex flex-col justify-between cursor-pointer"
           >
-            เริ่มลงขายสินค้า
-          </button>
-        </div>
+            {/* รูปภาพสินค้า */}
+            <div className="relative w-full aspect-square bg-slate-100 dark:bg-slate-800 overflow-hidden">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute top-2 right-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full shadow-md">
+                {item.discount}
+              </div>
+              {item.badge && (
+                <div className="absolute top-2 left-2 bg-slate-900/80 backdrop-blur-md text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md border border-amber-400/30">
+                  {item.badge}
+                </div>
+              )}
+            </div>
 
-        {/* หัวข้อสินค้า */}
-        <div className="flex justify-between items-center pt-4">
-          <h2 className="text-xl font-extrabold text-white flex items-center gap-3">
-            <span className="w-1.5 h-6 bg-gradient-to-b from-sky-400 to-blue-600 rounded-full inline-block"></span>
-            สินค้าแนะนำไฮไลต์
-          </h2>
-        </div>
+            {/* รายละเอียดสินค้า */}
+            <div className="p-3 flex flex-col justify-between flex-1">
+              <h2 className="text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-100 line-clamp-2 leading-snug mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                {item.name}
+              </h2>
 
-        {/* Grid สินค้าแนวนอน */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {mockProducts.map((item) => (
-            <ThreeDCard key={item.id} item={item} />
-          ))}
-        </div>
+              <div>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-base font-black text-orange-600 dark:text-orange-500">
+                    ฿{item.price.toLocaleString()}
+                  </span>
+                  <span className="text-[11px] text-slate-400 line-through">
+                    ฿{item.originalPrice.toLocaleString()}
+                  </span>
+                </div>
 
-      </main>
+                <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center gap-1">
+                    <span className="text-amber-400 text-xs">★</span>
+                    <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">{item.rating}</span>
+                  </div>
+                  <span className="text-[10px] text-slate-400">
+                    ขายแล้ว {item.reviews} ชิ้น
+                  </span>
+                </div>
+              </div>
+            </div>
 
-      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 }
