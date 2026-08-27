@@ -1,18 +1,19 @@
-import './globals.css';
-import { ThemeProvider } from './context/ThemeContext';
-import FloatingNav from './components/FloatingNav';
+import type { Metadata } from "next";
+import "./globals.css";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export const metadata: Metadata = {
+  title: "Campus Marketplace",
+  description: "ตลาดนัดซื้อขายสินค้าสำหรับนักศึกษา",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="th" className="dark">
-      <body className="min-h-screen antialiased pb-24">
-        <ThemeProvider>
-          <main className="max-w-md mx-auto p-4">
-            {children}
-          </main>
-          <FloatingNav />
-        </ThemeProvider>
-      </body>
+    <html lang="th">
+      <body>{children}</body>
     </html>
   );
 }
