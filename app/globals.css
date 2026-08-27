@@ -1,22 +1,24 @@
 @import "tailwindcss";
 
-:root {
-  --bg-color: #ffffff;
-  --text-color: #0f172a;
-  --card-bg: #f8fafc;
-  --border-color: #e2e8f0;
-}
+/* กำหนดให้เมื่อมี class="dark" ที่ html ให้สลับตัวแปรและสีเป็น Dark Mode */
+@layer base {
+  :root {
+    --bg-main: #ffffff;
+    --bg-card: #f8fafc;
+    --text-main: #0f172a;
+    --border-color: #e2e8f0;
+  }
 
-[data-theme='dark'] {
-  --bg-color: #0f172a;
-  --text-color: #f8fafc;
-  --card-bg: #1e293b;
-  --border-color: #334155;
-}
+  html.dark {
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --text-main: #f8fafc;
+    --border-color: #334155;
+  }
 
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
-  font-family: system-ui, -apple-system, sans-serif;
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 }

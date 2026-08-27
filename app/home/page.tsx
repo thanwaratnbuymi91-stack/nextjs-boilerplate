@@ -1,63 +1,117 @@
-import ThemeToggle from '@/components/ThemeToggle';
+'use client';
+import { useState } from 'react';
+import Navbar from './components/Navbar';
+import LoginModal from './components/LoginModal';
+import ThreeDCard from './components/ThreeDCard';
 
-const PRODUCTS = [
-  { id: 1, name: 'หนังสือเรียน Python', price: '150 ฿', seller: 'คณะวิศวะ', tag: 'มือสอง' },
-  { id: 2, name: 'เสื้อช็อปไซส์ L', price: '250 ฿', seller: 'คณะช่างอุต', tag: 'สภาพดี' },
-  { id: 3, name: 'หูฟัง Bluetooth', price: '300 ฿', seller: 'คณะบริหาร', tag: 'ใหม่' },
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  discount?: string;
+  rating?: number;
+  reviews?: number;
+  image: string;
+  badge?: string;
+}
+
+const mockProducts: Product[] = [
+  { 
+    id: 1, 
+    name: 'GUC กระเป๋าสะพายข้าง ทรงสวยจุของได้เยอะ หนังนุ่มพรีเมียม', 
+    price: 149, 
+    originalPrice: 390, 
+    discount: '-61%', 
+    rating: 4.9, 
+    reviews: 120, 
+    badge: 'LUXE',
+    image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&auto=format&fit=crop&q=80' 
+  },
+  { 
+    id: 2, 
+    name: 'เสื้อช็อปนักศึกษา ผ้าคอมทวิวเนื้อดี ใส่สบาย ไม่ร้อน', 
+    price: 250, 
+    originalPrice: 450, 
+    discount: '-44%', 
+    rating: 5.0, 
+    reviews: 85, 
+    badge: 'RECOMMENDED',
+    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80' 
+  },
+  { 
+    id: 3, 
+    name: 'หูฟังไร้สาย Bluetooth 5.3 ตัดเสียงรบกวน เบสหนัก', 
+    price: 399, 
+    originalPrice: 1290, 
+    discount: '-69%', 
+    rating: 4.8, 
+    reviews: 240, 
+    badge: 'HOT',
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80' 
+  },
+  { 
+    id: 4, 
+    name: 'กระเป๋าเป้นักศึกษา ช่องเยอะ กันน้ำ สายสะพายนุ่มซัพพอร์ตไหล่', 
+    price: 290, 
+    originalPrice: 590, 
+    discount: '-50%', 
+    rating: 4.9, 
+    reviews: 64, 
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80' 
+  },
 ];
 
 export default function HomePage() {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
   return (
-    <div className="max-w-md mx-auto min-h-screen flex flex-col p-4">
-      {/* Header */}
-      <header className="flex justify-between items-center py-3 mb-4 border-b border-gray-200 dark:border-gray-800">
-        <h1 className="text-xl font-bold text-blue-600 dark:text-blue-400">UniMarket</h1>
-        <ThemeToggle />
-      </header>
+    <div className="min-h-screen bg-slate-950 text-slate-100">
+      <Navbar onOpenLogin={() => setIsLoginOpen(true)} />
 
-      {/* Search Bar */}
-      <div className="mb-5">
-        <input
-          type="text"
-          placeholder="ค้นหาสินค้าในวิทยาลัย..."
-          className="w-full px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-transparent text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-        />
-      </div>
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        
+        {/* Banner แนวนอน */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 border border-sky-500/20 p-8 sm:p-14 text-white shadow-2xl shadow-sky-950/50 flex flex-col sm:flex-row justify-between items-center gap-6">
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl"></div>
+          
+          <div className="space-y-4 text-center sm:text-left z-10">
+            <span className="text-xs font-bold uppercase tracking-widest text-amber-300 bg-amber-400/10 border border-amber-400/20 px-3.5 py-1.5 rounded-full inline-block">
+              CAMPUS EXCLUSIVE SELECTION
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
+              ศูนย์รวมสินค้า <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-amber-300">และอุปกรณ์ระดับพรีเมียม</span>
+            </h1>
+            <p className="text-sm sm:text-base text-slate-400">แพลตฟอร์มซื้อ-ขายสินค้าคุณภาพสำหรับนักศึกษาโดยเฉพาะ</p>
+          </div>
 
-      {/* Main Content */}
-      <main className="flex-1 space-y-4">
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-base font-semibold">รายการแนะนำ</h2>
-          <span className="text-xs opacity-60">ทั้งหมด ({PRODUCTS.length})</span>
+          <button 
+            type="button"
+            onClick={() => setIsLoginOpen(true)}
+            className="z-10 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-extrabold px-8 py-4 rounded-2xl shadow-xl shadow-sky-500/25 transition-all cursor-pointer text-sm whitespace-nowrap tracking-wider"
+          >
+            เริ่มลงขายสินค้า
+          </button>
         </div>
 
-        <div className="grid grid-cols-1 gap-4">
-          {PRODUCTS.map((item) => (
-            <div
-              key={item.id}
-              className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm transition hover:shadow-md"
-              style={{ backgroundColor: 'var(--card-bg)' }}
-            >
-              <div className="h-36 bg-gray-100 dark:bg-gray-800 rounded-lg mb-3 flex items-center justify-center text-gray-400">
-                <span>[ รูปภาพสินค้า ]</span>
-              </div>
-              <div className="flex justify-between items-start mb-1">
-                <h3 className="font-bold text-base">{item.name}</h3>
-                <span className="text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
-                  {item.tag}
-                </span>
-              </div>
-              <p className="text-xs opacity-70 mb-3">ผู้ขาย: {item.seller}</p>
-              <div className="flex justify-between items-center pt-2 border-t border-gray-100 dark:border-gray-800">
-                <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{item.price}</span>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-medium transition">
-                  ติดต่อซื้อ
-                </button>
-              </div>
-            </div>
+        {/* หัวข้อสินค้า */}
+        <div className="flex justify-between items-center pt-4">
+          <h2 className="text-xl font-extrabold text-white flex items-center gap-3">
+            <span className="w-1.5 h-6 bg-gradient-to-b from-sky-400 to-blue-600 rounded-full inline-block"></span>
+            สินค้าแนะนำไฮไลต์
+          </h2>
+        </div>
+
+        {/* Grid สินค้าแนวนอน */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {mockProducts.map((item) => (
+            <ThreeDCard key={item.id} item={item} />
           ))}
         </div>
+
       </main>
+
+      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </div>
   );
 }
