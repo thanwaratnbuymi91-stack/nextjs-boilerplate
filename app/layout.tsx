@@ -3,31 +3,31 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import './globals.css';
 
-type Theme = 'dark' | 'light';
+type Theme = 'light' | 'dark';
 
-interface ThemeContextType {
+interface StoreContextType {
   theme: Theme;
   toggleTheme: () => void;
+  cartCount: number;
+  addToCart: () => void;
 }
 
-// 1. ประกาศสร้าง ThemeContext ที่ขาดไป
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
-// 2. Export useTheme ให้ไฟล์อื่นเรียกใช้ได้
-export function useTheme() {
-  const context = useContext(ThemeContext);
+export function useStore() {
+  const context = useContext(StoreContext);
   if (!context) {
-    throw new Error('useTheme must be used within ThemeProvider');
+    throw new Error('useStore must be used within StoreProvider');
   }
   return context;
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>('light');
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     const root = document.documentElement;
-    root.setAttribute('data-theme', theme);
     if (theme === 'dark') {
       root.classList.add('dark');
     } else {
@@ -35,16 +35,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     }
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
+  const toggleTheme = () => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  const addToCart = () => setCartCount((prev) => prev + 1);
 
   return (
-    <html lang="th" className="dark">
-      <body className="bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 min-h-screen">
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <html lang="th" className="light">
+      <body className="bg-stone-50 dark:bg-zinc-950 text-stone-800 dark:text-zinc-100 min-h-screen font-sans transition-colors duration-500 antialiased">
+        <StoreContext.Provider value={{ theme, toggleTheme, cartCount, addToCart }}>
           {children}
-        </ThemeContext.Provider>
+        </StoreContext.Provider>
       </body>
     </html>
   );
