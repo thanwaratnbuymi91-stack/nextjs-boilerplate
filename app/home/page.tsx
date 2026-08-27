@@ -24,10 +24,38 @@ function ThemeToggle() {
 }
 
 const mockProducts = [
-  { id: 1, name: 'หนังสือเรียน Python', price: '150 ฿', seller: 'คณะวิศวะ', tag: 'มือสอง' },
-  { id: 2, name: 'เสื้อช็อปไซส์ L', price: '250 ฿', seller: 'คณะช่างอุต', tag: 'สภาพดี' },
-  { id: 3, name: 'หูฟัง Bluetooth', price: '300 ฿', seller: 'คณะบริหาร', tag: 'ใหม่' },
-  { id: 4, name: 'เครื่องคิดเลขวิทยาศาสตร์', price: '450 ฿', seller: 'คณะวิทยาศาสตร์', tag: 'สภาพดี' },
+  {
+    id: 1,
+    name: 'หนังสือเรียน Python',
+    price: '150 ฿',
+    seller: 'คณะวิศวะ',
+    tag: 'มือสอง',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80',
+  },
+  {
+    id: 2,
+    name: 'เสื้อช็อปไซส์ L',
+    price: '250 ฿',
+    seller: 'คณะช่างอุต',
+    tag: 'สภาพดี',
+    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80',
+  },
+  {
+    id: 3,
+    name: 'หูฟัง Bluetooth',
+    price: '300 ฿',
+    seller: 'คณะบริหาร',
+    tag: 'ใหม่',
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80',
+  },
+  {
+    id: 4,
+    name: 'เครื่องคิดเลขวิทยาศาสตร์',
+    price: '450 ฿',
+    seller: 'คณะวิทยาศาสตร์',
+    tag: 'สภาพดี',
+    image: 'https://images.unsplash.com/photo-1611125832047-1d7ad1e8e488?auto=format&fit=crop&w=600&q=80',
+  },
 ];
 
 export default function HomeRoutePage() {
@@ -75,18 +103,24 @@ export default function HomeRoutePage() {
             {mockProducts.map((item) => (
               <div
                 key={item.id}
-                className="group relative p-6 rounded-3xl border border-stone-200 dark:border-stone-800 hover:border-amber-500/40 transition-all duration-500 hover:-translate-y-1 shadow-sm hover:shadow-xl hover:shadow-amber-500/10 flex flex-col justify-between"
+                className="group relative p-5 rounded-3xl border border-stone-200 dark:border-stone-800 hover:border-amber-500/40 transition-all duration-500 hover:-translate-y-1 shadow-sm hover:shadow-xl hover:shadow-amber-500/10 flex flex-col justify-between"
                 style={{ backgroundColor: 'var(--card-bg)' }}
               >
                 <div>
-                  <div className="h-48 bg-stone-100 dark:bg-stone-900/80 rounded-2xl mb-5 flex items-center justify-center border border-stone-200/50 dark:border-stone-800/50 group-hover:border-amber-500/20 transition-all">
-                    <span className="text-xs tracking-wider text-stone-400 uppercase font-medium">[ Product Image ]</span>
+                  {/* Product Image Container */}
+                  <div className="h-48 w-full bg-stone-100 dark:bg-stone-900/80 rounded-2xl mb-5 overflow-hidden border border-stone-200/50 dark:border-stone-800/50 group-hover:border-amber-500/20 transition-all">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
+
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-bold text-lg group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                    <h3 className="font-bold text-lg group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors line-clamp-1">
                       {item.name}
                     </h3>
-                    <span className="text-[10px] px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-semibold tracking-wider uppercase">
+                    <span className="text-[10px] px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-semibold tracking-wider uppercase shrink-0 ml-2">
                       {item.tag}
                     </span>
                   </div>
