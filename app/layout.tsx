@@ -1,19 +1,17 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import './globals.css';
+import { ThemeProvider } from '@/context/ThemeContext';
 
-export const metadata: Metadata = {
-  title: "Campus Marketplace",
-  description: "ตลาดนัดซื้อขายสินค้าสำหรับนักศึกษา",
+export const metadata = {
+  title: 'UNIMARKET 3D',
+  description: 'Cyber Blue 3D Marketplace',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="th">
-      <body>{children}</body>
+      <body className="bg-slate-950 text-slate-100 min-h-screen">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }
