@@ -226,4 +226,4 @@ export default function HomePage() {
       <FloatingNav activeTab={activeTab} setActiveTab={setActiveTab} />
     </div>
   );
-} 
+}
